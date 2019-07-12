@@ -19,11 +19,6 @@ public class objectBehavior : MonoBehaviour
     void Update()
     {
         objRB.velocity = new Vector2(0, -(gameController.level * gameController.speed));
-
-        /*if (gameController.speed < gameController.level)
-        {
-            gameController.speed = gameController.level / 2;
-        }*/
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -36,14 +31,6 @@ public class objectBehavior : MonoBehaviour
 
     public void OnMouseDown()
     {
-        /*for (int i = 0; i < gameObject.GetComponent<gameController>().rule.Length; i++)
-        {
-            if (this.gameObject.tag == gameObject.GetComponent<gameController>().rule[i])
-            {
-                DestroyObject();
-                gameObject.GetComponent<gameController>().ruleCount++;
-            }
-        }*/
         if (gameObject.tag == gameController.currentRule)
         {
             DestroyObject();

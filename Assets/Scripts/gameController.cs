@@ -8,10 +8,14 @@ public class gameController : MonoBehaviour
     public int level=1;
     public int ruleCount=0;
     public int randomRule;
+    public int ruleCountLevel;
+    public int minRuleCount = 2;
+    public int maxRuleCount = 6;
     public float speed;
     public float spawnTime;
     public string[] rule;
     public string currentRule;
+    public string oldRule="null";
 
     public GameObject spawner;
 
@@ -25,12 +29,7 @@ public class gameController : MonoBehaviour
 
     void Update()
     {
-        if(ruleCount != 0 && ruleCount < 5)
-        {
-            Debug.Log("Rule: "+currentRule);
-            Debug.Log("Count: "+ruleCount);
-            Debug.Log("Level: " + level);
-        }
+        Debug.Log("Rule: " + currentRule + " |Count: " + ruleCount + " |Count Max: " + ruleCountLevel + " |Level: " + level);
 
         if (ruleCount < 0 && level > 1)
         {
@@ -41,7 +40,7 @@ public class gameController : MonoBehaviour
 
         if (ruleCount < 0) ruleCount = 0;
 
-        if (ruleCount == 5)
+        if (ruleCount == ruleCountLevel)
         {
             level++;
             ruleCount = 0;
@@ -53,7 +52,9 @@ public class gameController : MonoBehaviour
 
     void RandomRule()
     {
-        randomRule = Random.Range(0, 2);
+        ruleCountLevel = Random.Range(minRuleCount, maxRuleCount);
+
+        randomRule = Random.Range(0, 3);
         if (randomRule == 0)
         {
             currentRule = rule[0];
