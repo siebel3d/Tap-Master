@@ -8,10 +8,12 @@ public class objectBehavior : MonoBehaviour
 
     public Rigidbody2D objRB;
     private gameController gameController;
+    private textUIHandler textUIHandler;
 
     void Start()
     {
         gameController = GameObject.FindObjectOfType<gameController>();
+        textUIHandler = GameObject.FindObjectOfType<textUIHandler>();
         objRB = GetComponent<Rigidbody2D>();
         objRB.velocity = new Vector2(0, -(gameController.level* gameController.speed));
     }
@@ -25,6 +27,10 @@ public class objectBehavior : MonoBehaviour
     {
         if (collision.gameObject.name == "collisionBottom")
         {
+            if (string.Compare(this.gameObject.tag, gameController.currentRule) == 0)
+            {
+                gameController.GameOver();
+            }
             DestroyObject();
         }
     }
@@ -35,18 +41,23 @@ public class objectBehavior : MonoBehaviour
         {
             DestroyObject();
             gameController.ruleCount++;
+            gameController.score++;
+            textUIHandler.updateScoreText();
+
         }
         else
         {
             DestroyObject();
             Debug.Log("Destroyed wrong object");
             gameController.ruleCount--;
-            
+            gameController.GameOver();            
         }
             
 
                 
     }
+
+    
 
     void DestroyObject()
     {
