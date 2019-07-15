@@ -31,9 +31,9 @@ public class randomSpawner : MonoBehaviour
         //spawnTime = Time.time;
         //repeatTime = gameController.level/(gameController.level/2);
 
-        if (gameController.level == 1) repeatTime = 3;
-        if (gameController.level == 2) repeatTime = 2;
-        if (gameController.level == 3) repeatTime = 1.5f;
+        if (gameController.level == 1) repeatTime = 4;
+        if (gameController.level == 2) repeatTime = 3;
+        if (gameController.level == 3) repeatTime = 2;
         if (gameController.level == 4) repeatTime = 1;
         if (gameController.level > 4 && repeatTime >= 0.5f) repeatTime = 1/(gameController.level*0.2f);
 
@@ -49,7 +49,9 @@ public class randomSpawner : MonoBehaviour
     void Spawn()
     {
         randomPosition.x = Random.Range(leftLimiter.transform.position.x, rightLimiter.transform.position.x);
-        randomInt = Random.Range(0, spawnees.Length);
+        if (gameController.level <= 4) randomInt = Random.Range(0, 3);
+        if ((gameController.level > 4) && (gameController.level <= 7)) randomInt = Random.Range(0, 6);
+        if (gameController.level > 7) randomInt = Random.Range(0, spawnees.Length);
         Instantiate(spawnees[randomInt], randomPosition, spawnees[randomInt].transform.rotation);
     }
 }

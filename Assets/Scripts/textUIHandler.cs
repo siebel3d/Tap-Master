@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class textUIHandler : MonoBehaviour
 {
-    private gameController gameController;
+    public static gameController gameController;
 
     public Text rule;
     public Text score;
@@ -14,9 +14,8 @@ public class textUIHandler : MonoBehaviour
 
     void Start()
     {
-        gameOver.gameObject.SetActive(false);
-
         gameController = GameObject.FindObjectOfType<gameController>();
+        gameOver.gameObject.SetActive(false);
 
         updateRuleText();
         updateScoreText();
@@ -26,13 +25,12 @@ public class textUIHandler : MonoBehaviour
 
     void Update()
     {
-        
-        
         level.text = "Level: " + gameController.level.ToString();
     }
 
     public void updateRuleText()
     {
+        gameController = GameObject.FindObjectOfType<gameController>();
         rule.text = "Rule: " + gameController.currentRule;
     }
 

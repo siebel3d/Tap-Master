@@ -4,10 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - CollisionBottom
+  - Blue Circle
+  - Blue Cube
+  - Blue Triangle
+  - Pink Circle
+  - Pink Cube
+  - Pink Triangle
+  - Yellow Circle
+  - Yellow Cube
+  - Yellow Triangle
   - Cube
   - Circle
   - Triangle
-  - CollisionBottom
   layers:
   - Default
   - TransparentFX

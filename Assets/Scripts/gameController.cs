@@ -29,27 +29,24 @@ public class gameController : MonoBehaviour
     void Start()
     {
         textUIHandler = GameObject.FindObjectOfType<textUIHandler>();
-
         score = 0;
         level = 1;
         speed = 1;
-        rule = new string[] { "Blue Circle", "Blue Cube", "Blue Triangle", "Pink Circle", "Pink Cube", "Pink Triangle", "Yellow Circle", "Yellow Cube", "Yellow Triangle"};
+        //rule = new string[] { "Blue Circle", "Pink Circle", "Blue Cube", "Pink Cube", "Yellow Circle", "Yellow Cube", "Blue Triangle", "Pink Triangle", "Yellow Triangle"};
+        rule = new string[] { "Blue Circle", "Pink Circle", "Blue Cube", "Pink Cube"};
         RandomRule();
-
         leftLimiter.transform.position = new Vector2(leftScreenLimit, 0);
         rightLimiter.transform.position = new Vector2(rightScreenLimit, 0);
     }
 
     void Update()
     {
-        textUIHandler.updateRuleText();
-
-        Debug.Log("Rule: " + currentRule + " |Count: " + ruleCount + " |Count Max: " + ruleCountLevel + " |Level: " + level);
+        if (oldRule == currentRule) RandomRule();
+        //Debug.Log("Rule: " + currentRule + " |Count: " + ruleCount + " |Count Max: " + ruleCountLevel + " |Level: " + level);
 
         if (ruleCount < 0 && level > 1)
         {
             textUIHandler.updateLevelText();
-            textUIHandler.updateRuleText();
             level--;
             ruleCount = 0;
             RandomRule();
@@ -60,48 +57,48 @@ public class gameController : MonoBehaviour
         if (ruleCount == ruleCountLevel)
         {
             textUIHandler.updateLevelText();
-            textUIHandler.updateRuleText();
             level++;
             ruleCount = 0;
             RandomRule();
         }
-
-
+        textUIHandler.updateRuleText();
     }
 
     void RandomRule()
     {
-        ruleCountLevel = Random.Range(minRuleCount, maxRuleCount);
-
-        randomRule = Random.Range(0, 9);
-
+        oldRule = currentRule;
+        if (level <= 4)
+        {
+            randomRule = Random.Range(0, 3);
+            ruleCountLevel = 2;
+        }
+        if ((level > 4) && (level <= 7))
+        {
+            randomRule = Random.Range(0, 6);
+            ruleCountLevel = 5;
+        }
+        if (level > 7)
+        {
+            randomRule = Random.Range(0, 9);
+            ruleCountLevel = 8;
+        }
         currentRule = rule[randomRule];
         ruleCount = 0;
-        /*if (randomRule == 0)
-        {
-            currentRule = rule[0];
-            ruleCount = 0;
-        }
-        else if (randomRule == 1)
-        {
-            currentRule = rule[1];
-            ruleCount = 0;
-        }
-        else if (randomRule == 2)
-        {
-            currentRule = rule[2];
-            ruleCount = 0;
-        }*/
-
-        Debug.Log(currentRule);
-        Debug.Log(ruleCount);
-
+        //Debug.Log(currentRule);
+        //Debug.Log(ruleCount);
         textUIHandler.updateRuleText();
     }
 
     public void GameOver()
     {
         textUIHandler.enableGameOverText(true);
-        Debug.Log("GAME OVER");
+        //Debug.Log("GAME OVER");
+    }
+
+    void checkLevel(int currentLevel)
+    {
+        if (currentLevel <= 4) rule = new string[] { "Blue Circle", "Pink Circle", "Blue Cube", "Pink Cube" };
+        if ((currentLevel > 4)&&(currentLevel <= 7)) rule = new string[] { "Blue Circle", "Pink Circle", "Blue Cube", "Pink Cube", "Yellow Circle", "Yellow Cube"};
+        if (currentLevel > 7) rule = new string[] { "Blue Circle", "Pink Circle", "Blue Cube", "Pink Cube", "Yellow Circle", "Yellow Cube", "Blue Triangle", "Pink Triangle", "Yellow Triangle" };
     }
 }
