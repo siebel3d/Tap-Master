@@ -27,14 +27,7 @@ public class randomSpawner : MonoBehaviour
 
     void Update()
     {
-        //spawnTime = gameController.level;
-        //spawnTime = Time.time;
-        //repeatTime = gameController.level/(gameController.level/2);
-
-        if (gameController.level == 1) repeatTime = 4;
-        if (gameController.level == 2) repeatTime = 3;
-        if (gameController.level == 3) repeatTime = 2;
-        if (gameController.level == 4) repeatTime = 1;
+        if ((gameController.level > 0)&&(gameController.level <= 4)) repeatTime = ((gameController.speed*2)-(gameController.level-2));
         if (gameController.level > 4 && repeatTime >= 0.5f) repeatTime = 1/(gameController.level*0.2f);
 
         if (repeatTime < 0.5f) repeatTime = 0.5f;

@@ -31,7 +31,7 @@ public class gameController : MonoBehaviour
         textUIHandler = GameObject.FindObjectOfType<textUIHandler>();
         score = 0;
         level = 1;
-        speed = 1;
+        speed = 2;
         //rule = new string[] { "Blue Circle", "Pink Circle", "Blue Cube", "Pink Cube", "Yellow Circle", "Yellow Cube", "Blue Triangle", "Pink Triangle", "Yellow Triangle"};
         rule = new string[] { "Blue Circle", "Pink Circle", "Blue Cube", "Pink Cube"};
         RandomRule();

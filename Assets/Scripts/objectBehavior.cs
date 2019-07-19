@@ -21,6 +21,12 @@ public class objectBehavior : MonoBehaviour
     void Update()
     {
         objRB.velocity = new Vector2(0, -(gameController.level * gameController.speed));
+
+        if (Input.touchCount>0)
+        {
+            Touch touch = Input.GetTouch(1);
+            if (touch.phase == TouchPhase.Began) destroyObject();
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -35,7 +41,7 @@ public class objectBehavior : MonoBehaviour
         }
     }
 
-    public void OnMouseDown()
+    /*public void OnMouseDown()
     {
         if (gameObject.tag == gameController.currentRule)
         {
@@ -50,14 +56,35 @@ public class objectBehavior : MonoBehaviour
             DestroyObject();
             Debug.Log("Destroyed wrong object");
             gameController.ruleCount--;
-            gameController.GameOver();            
+            gameController.GameOver();
         }
-            
 
-                
+
+
+    }*/
+
+    public void destroyObject()
+    {
+        if (gameObject.tag == gameController.currentRule)
+        {
+            DestroyObject();
+            gameController.ruleCount++;
+            gameController.score++;
+            textUIHandler.updateScoreText();
+
+        }
+        else
+        {
+            DestroyObject();
+            Debug.Log("Destroyed wrong object");
+            gameController.ruleCount--;
+            gameController.GameOver();
+        }
+
+
+
     }
 
-    
 
     void DestroyObject()
     {
